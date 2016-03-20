@@ -49,7 +49,7 @@ describe('input validations', function () {
             resultObj.Warnings.length.should.equal(0);
             done();
         });
-        it('returns error non-string names', function (done) {
+        it('returns error when names contain non-alpha characters', function (done) {
             var testObj = {
                 'FirstName' : 123,
                 'LastName' : '456',
@@ -63,7 +63,7 @@ describe('input validations', function () {
             resultObj.Warnings.length.should.equal(0);
             done();
         });
-        it('returns error with invalid super rate', function (done) {
+        it('returns error with negative super rate', function (done) {
             var testObj = {
                 'FirstName' : 'Allan',
                 'LastName' : 'Tester',
@@ -77,12 +77,26 @@ describe('input validations', function () {
             resultObj.Warnings.length.should.equal(0);
             done();
         });
-        it('returns warning with super rate lower than guaranteed rate', function (done) {
+        it('returns error with super rate exceed 50%', function (done) {
             var testObj = {
                 'FirstName' : 'Allan',
                 'LastName' : 'Tester',
                 "Salary" : 9999.50,
-                'SuperRate' : '9%',
+                'SuperRate' : '51%',
+                'Period' : '1 Jul 2014 - 31 Jul 2014'
+            };
+            var resultObj = inputValidator.validate(testObj);
+            resultObj.IsValid.should.equal(false);
+            resultObj.Errors.length.should.equal(1);
+            resultObj.Warnings.length.should.equal(0);
+            done();
+        });
+        it('returns warning with super rate lower than guaranteed rate', function (done) {
+            var testObj = {
+                'FirstName' : 'Allan',
+                'LastName' : 'Tester',
+                "Salary" : 19999.50,
+                'SuperRate' : '0%',
                 'Period' : '1 Sep 2015 - 30 Sep 2015'
             };
             var resultObj = inputValidator.validate(testObj);
@@ -97,6 +111,20 @@ describe('input validations', function () {
                 'LastName' : 'Tester',
                 "Salary" : 10000,
                 'SuperRate' : '9.5%',
+                'Period' : '1 Mar 2016 - 1 Feb 2016'
+            };
+            var resultObj = inputValidator.validate(testObj);
+            resultObj.IsValid.should.equal(false);
+            resultObj.Errors.length.should.equal(1);
+            resultObj.Warnings.length.should.equal(0);
+            done();
+        });
+        it('returns error if period is before 1 July 2014', function (done) {
+            var testObj = {
+                'FirstName' : 'Allan',
+                'LastName' : 'Tester',
+                "Salary" : 10000,
+                'SuperRate' : '9.5%',
                 'Period' : '1 Mar 2014 - 31 Mar 2014'
             };
             var resultObj = inputValidator.validate(testObj);
@@ -105,7 +133,21 @@ describe('input validations', function () {
             resultObj.Warnings.length.should.equal(0);
             done();
         });
-        it('returns error with invalid salary', function (done) {
+        it('returns error with zero salary', function (done) {
+            var testObj = {
+                'FirstName' : 'Allan',
+                'LastName' : 'Tester',
+                "Salary" : 0,
+                'SuperRate' : '9.5%',
+                'Period' : '1 Jul 2014 - 31 Jul 2014'
+            };
+            var resultObj = inputValidator.validate(testObj);
+            resultObj.IsValid.should.equal(false);
+            resultObj.Errors.length.should.equal(1);
+            resultObj.Warnings.length.should.equal(0);
+            done();
+        });
+        it('returns error with negative salary', function (done) {
             var testObj = {
                 'FirstName' : 'Allan',
                 'LastName' : 'Tester',

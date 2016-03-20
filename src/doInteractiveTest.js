@@ -41,11 +41,11 @@ var doInteractiveTest = {
 
             console.log();
             _.forEach(validateObj.Errors, function (error) {
-                console.log(chalk.red(error));
+                console.error(chalk.red(error));
                 console.log();
             });
-            _.forEach(validateObj.Warnings, function (error) {
-                console.log(chalk.yellow(error));
+            _.forEach(validateObj.Warnings, function (warning) {
+                console.log(chalk.yellow(warning));
                 console.log();
             });
             if (validateObj.IsValid) {

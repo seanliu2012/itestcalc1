@@ -7,8 +7,8 @@ This sample application provides employee monthly pay calculation by using ATO t
 
 Steps of setting up:
 ```shell
-$ git clone <git_remote_path> <local-dir>
-$ cd ./<local-dir>
+$ git clone https://github.com/seanliu2012/itestcalc1 itestcalc1
+$ cd ./itestcalc1
 $ npm install
 $ node src/app.js        # run application without any command line option
 $ npm test               # run all unit tests

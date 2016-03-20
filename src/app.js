@@ -4,6 +4,7 @@ var pkg = require('../package.json');
 var program = require('commander');
 var chalk = require('chalk');
 var doInteractiveTest = require('./doInteractiveTest');
+var doCsvLine = require('./doCsvLine');
 var doCsvFile = require('./doCsvFile');
 
 program
@@ -21,7 +22,7 @@ if (program.test) {
 
 } else if (program.csvLine) {
 
-    console.log(program.csvLine);
+    doCsvLine.start(program.csvLine);
 
 } else if (program.csvFile) {
 

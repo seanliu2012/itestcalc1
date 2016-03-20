@@ -38,7 +38,7 @@ var _validateSalary = function (salary) {
         salary = numeral().unformat(salary);
     }
 
-    return salary >= 0;
+    return salary > 0;
 };
 
 var inputValidator = {
@@ -76,10 +76,12 @@ var inputValidator = {
         }
 
         var rate = inputObj['SuperRate'];
-        if (!util.isPercentage(rate)) {
+        if (!util.isPercentage(rate) || parseFloat(rate) > 50) {
             validateResult.IsValid = false;
             validateResult.Errors.push('ERROR: invalid super rate');
-        } else {
+        }
+        // extra check for rates lower than government guaranteed rate
+        if (validateResult.IsValid) {
             var minRate = rateApi.getMinSGRate();
             if (minRate > parseFloat(rate)) {
                 validateResult.Warnings.push('WARNING: ' + rate + ' is below minimum superannuation guarantee rate ' + minRate + '%')

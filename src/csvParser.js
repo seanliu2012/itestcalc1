@@ -25,6 +25,11 @@ var csvParser = {
         });
         converter.transform = _transform;
 
+        converter.on("error", function (errMsg, errData) {
+            var err = new Error(errMsg + '\r\n' + errData);
+            callback(err);
+        });
+
         converter.fromString(csvLine, function (err, result) {
             callback(err, result);
         });
