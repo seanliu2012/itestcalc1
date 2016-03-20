@@ -3,6 +3,10 @@
 This sample application provides employee monthly pay calculation by using ATO tax rates.
  * Runs on Node.js version 4 or later.
 
+### Analysis, assumptions and screen shots
+
+ * See [Nodejs coding exercise - Sean Liu.pdf](https://github.com/seanliu2012/itestcalc1/blob/master/doc/Nodejs%20coding%20exercise%20-%20Sean%20Liu.pdf).
+
 ### Running the app
 
 Steps of setting up:
